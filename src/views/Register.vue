@@ -54,7 +54,15 @@ export default {
   methods: {
     onSubmit() {
       console.log('submitted form')
-      this.$store.dispatch('register')
+      this.$store
+        .dispatch('register', {
+          email: 'sdfdrterysf@weerte.com',
+          username: 'dfsdfsdfsdfooooert43t',
+          password: '123456789'
+        })
+        .then(user => {
+          console.log('successfully register user', user)
+        })
     }
   }
 }
