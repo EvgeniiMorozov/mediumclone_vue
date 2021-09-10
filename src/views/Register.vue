@@ -53,7 +53,8 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$store.commit('registerStart')
+      console.log('submitted form')
+      this.$store.dispatch('register')
     }
   }
 }
