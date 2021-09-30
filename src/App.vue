@@ -1,13 +1,19 @@
 <template>
   <div id="app">
-    Hello Medium Clone
-
+    <mcv-topbar />
     <router-view />
   </div>
 </template>
 
 <script>
-export default {}
+import McvTopbar from '@/components/TopBar'
+
+export default {
+  name: 'McvApp',
+  components: {
+    McvTopbar
+  }
+}
 </script>
 
 <style></style>
