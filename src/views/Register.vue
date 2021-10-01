@@ -83,7 +83,7 @@ export default {
         })
         .then(user => {
           console.log('successfully register user', user)
-          this.$router.push({name: 'home'})
+          this.$router.push({name: 'globalFeed'})
         })
     }
   }
