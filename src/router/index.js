@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Register from '@/views/Register'
-import Login from '@/views/Login'
-import GlobalFeed from '@/views/GlobalFeed'
+
+import GlobalFeed from '@/views/GlobalFeed.vue'
+import Register from '@/views/Register.vue'
+import Login from '@/views/Login.vue'
 
 Vue.use(VueRouter)
 

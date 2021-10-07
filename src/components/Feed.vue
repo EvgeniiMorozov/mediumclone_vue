@@ -1,8 +1,7 @@
 <template>
   <div>
     <div v-if="isLoading">Loading...</div>
-
-    <div v-if="error">Something bad happened</div>
+    <div v-if="error">Something bad happed</div>
 
     <div v-if="feed">
       <div
@@ -12,28 +11,22 @@
       >
         <div class="article-meta">
           <router-link
-            :to="{
-              name: 'user.profile',
-              params: {slug: article.author.username}
-            }"
+            :to="{name: 'userProfile', params: {slug: article.author.username}}"
           >
             <img :src="article.author.image" />
           </router-link>
           <div class="info">
             <router-link
               :to="{
-                name: 'user.profile',
+                name: 'userProfile',
                 params: {slug: article.author.username}
               }"
-              class="author"
             >
               {{ article.author.username }}
             </router-link>
             <span class="date">{{ article.createdAt }}</span>
           </div>
-          <div class="pull-xs-right">
-            ADD TO FAVORITES
-          </div>
+          <div class="pull-xs-right">ADD TO FAVORITES</div>
         </div>
         <router-link
           :to="{name: 'article', params: {slug: article.slug}}"
@@ -45,21 +38,39 @@
           TAG LIST
         </router-link>
       </div>
-      PAGINATION
+      <mcv-pagination
+        :total="total"
+        :limit="limit"
+        :url="url"
+        :current-page="currentPage"
+      ></mcv-pagination>
     </div>
   </div>
 </template>
 
 <script>
 import {mapState} from 'vuex'
-import {actionsTypes} from '@/store/modules/feed'
+
+import {actionTypes} from '@/store/modules/feed'
+import McvPagination from '@/components/Pagination'
 
 export default {
   name: 'McvFeed',
+  components: {
+    McvPagination
+  },
   props: {
     apiUrl: {
       type: String,
       required: true
+    }
+  },
+  data() {
+    return {
+      total: 500,
+      limit: 10,
+      url: '/tags/dragons',
+      currentPage: 5
     }
   },
   computed: {
@@ -70,10 +81,8 @@ export default {
     })
   },
   mounted() {
-    console.log('init feed')
-    this.$store.dispatch(actionsTypes.getFeed, {apiUrl: this.apiUrl})
+    console.log('feed')
+    this.$store.dispatch(actionTypes.getFeed, {apiUrl: this.apiUrl})
   }
 }
 </script>
-
-<style scoped></style>

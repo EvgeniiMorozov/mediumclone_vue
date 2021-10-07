@@ -7,8 +7,8 @@
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
           <router-link class="nav-link" :to="{name: 'globalFeed'}"
-            >Home
-          </router-link>
+            >Home</router-link
+          >
         </li>
         <template v-if="isLoggedIn">
           <li class="nav-item">
@@ -54,28 +54,17 @@
 </template>
 
 <script>
-import {gettersTypes} from '@/store/modules/auth'
 import {mapGetters} from 'vuex'
+import {getterTypes} from '@/store/modules/auth'
 
 export default {
   name: 'McvTopbar',
   computed: {
     ...mapGetters({
-      currentUser: gettersTypes.currentUser,
-      isLoggedIn: gettersTypes.isLoggedIn,
-      isAnonymous: gettersTypes.isAnonymous
+      currentUser: getterTypes.currentUser,
+      isLoggedIn: getterTypes.isLoggedIn,
+      isAnonymous: getterTypes.isAnonymous
     })
-    // currentUser() {
-    //   return this.$store.getters[gettersTypes.currentUser]
-    // },
-    // isLoggedIn() {
-    //   return this.$store.getters[gettersTypes.isLoggedIn]
-    // },
-    // isAnonymous() {
-    //   return this.$store.getters[gettersTypes.isAnonymous]
-    // }
   }
 }
 </script>
-
-<style scoped></style>
