@@ -49,11 +49,11 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
-  import {actionsTypes} from '@/store/modules/feed'
-  import McvPagination from '@/components/Pagination'
-  import {limit} from '@/helpers/vars'
-  import {stringify, parseUrl} from 'query-string'
+import {mapState} from 'vuex'
+import {actionsTypes} from '@/store/modules/feed'
+import McvPagination from '@/components/Pagination'
+import {limit} from '@/helpers/vars'
+import {stringify, parseUrl} from 'query-string'
 
 export default {
   name: 'McvFeed',
@@ -106,5 +106,6 @@ export default {
       const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`
       this.$store.dispatch(actionsTypes.getFeed, {apiUrl: apiUrlWithParams})
     }
-  },
+  }
+}
 </script>
