@@ -66,9 +66,6 @@ export default {
       required: true
     }
   },
-  components: {
-    McvPagination
-  },
   data() {
     return {
       limit
