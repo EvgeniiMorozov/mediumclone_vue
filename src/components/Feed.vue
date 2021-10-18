@@ -49,11 +49,11 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
-
-import {actionTypes} from '@/store/modules/feed'
-import McvPagination from '@/components/Pagination'
-import {limit} from '@/helpers/vars'
+  import {mapState} from 'vuex'
+  import {actionsTypes} from '@/store/modules/feed'
+  import McvPagination from '@/components/Pagination'
+  import {limit} from '@/helpers/vars'
+  import {stringify, parseUrl} from 'query-string'
 
 export default {
   name: 'McvFeed',
@@ -66,12 +66,12 @@ export default {
       required: true
     }
   },
+  components: {
+    McvPagination
+  },
   data() {
     return {
-      // total: 500,
-      limit,
-      // currentPage: 5,
-      url: '/'
+      limit
     }
   },
   computed: {
@@ -85,9 +85,26 @@ export default {
       return Number(this.$route.query.page || '1')
     }
   },
+  watch: {
+    currentPage() {
+      console.log('currentPage changed')
+      this.fetchFeed()
+    }
+  },
   mounted() {
-    console.log('feed')
-    this.$store.dispatch(actionTypes.getFeed, {apiUrl: this.apiUrl})
-  }
-}
+    console.log('init feed')
+    this.fetchFeed()
+  },
+  methods: {
+    fetchFeed() {
+      const parsedUrl = parseUrl(this.apiUrl)
+      const stringifiedParams = stringify({
+        limit,
+        offset: this.offset,
+        ...parsedUrl.query
+      })
+      const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`
+      this.$store.dispatch(actionsTypes.getFeed, {apiUrl: apiUrlWithParams})
+    }
+  },
 </script>
