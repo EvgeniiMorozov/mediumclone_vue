@@ -39,7 +39,7 @@
         </router-link>
       </div>
       <mcv-pagination
-        :total="total"
+        :total="feed.articlesCount"
         :limit="limit"
         :url="url"
         :current-page="currentPage"
@@ -53,6 +53,7 @@ import {mapState} from 'vuex'
 
 import {actionTypes} from '@/store/modules/feed'
 import McvPagination from '@/components/Pagination'
+import {limit} from '@/helpers/vars'
 
 export default {
   name: 'McvFeed',
@@ -67,10 +68,10 @@ export default {
   },
   data() {
     return {
-      total: 500,
-      limit: 10,
-      url: '/tags/dragons',
-      currentPage: 5
+      // total: 500,
+      limit,
+      // currentPage: 5,
+      url: '/'
     }
   },
   computed: {
@@ -78,7 +79,11 @@ export default {
       isLoading: state => state.feed.isLoading,
       feed: state => state.feed.data,
       error: state => state.feed.error
-    })
+    }),
+    currentPage() {
+      console.log('currentPage', this.$route)
+      return Number(this.$route.query.page || '1')
+    }
   },
   mounted() {
     console.log('feed')
