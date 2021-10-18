@@ -41,7 +41,7 @@
       <mcv-pagination
         :total="feed.articlesCount"
         :limit="limit"
-        :url="url"
+        :url="baseUrl"
         :current-page="currentPage"
       ></mcv-pagination>
     </div>
@@ -50,10 +50,11 @@
 
 <script>
 import {mapState} from 'vuex'
+import {stringify, parseUrl} from 'query-string'
+
 import {actionTypes} from '@/store/modules/feed'
 import McvPagination from '@/components/Pagination'
 import {limit} from '@/helpers/vars'
-import {stringify, parseUrl} from 'query-string'
 import McvPopularTags from '@/components/PopularTags'
 import McvLoading from '@/components/Loading'
 import McvErrorMessage from '@/components/ErrorMessage'
@@ -72,11 +73,6 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      limit
-    }
-  },
   computed: {
     ...mapState({
       isLoading: state => state.feed.isLoading,
@@ -86,16 +82,23 @@ export default {
     currentPage() {
       console.log('currentPage', this.$route)
       return Number(this.$route.query.page || '1')
+    },
+    baseUrl() {
+      return this.$route.path
+    },
+    limit() {
+      return limit
+    },
+    offset() {
+      return this.currentPage * limit - limit
     }
   },
   watch: {
     currentPage() {
-      console.log('currentPage changed')
       this.fetchFeed()
     }
   },
   mounted() {
-    console.log('init feed')
     this.fetchFeed()
   },
   methods: {
