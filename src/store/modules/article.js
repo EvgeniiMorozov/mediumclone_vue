@@ -9,11 +9,15 @@ const state = {
 export const mutationsTypes = {
   getArticleStart: '[article] Get article start',
   getArticleSuccess: '[article] Get article success',
-  getArticleFailure: '[article] Get article failure'
+  getArticleFailure: '[article] Get article failure',
+  deleteArticleStart: '[article] Delete article start',
+  deleteArticleSuccess: '[article] Delete article success',
+  deleteArticleFailure: '[article] Delete article failure'
 }
 
 export const actionsTypes = {
-  getArticle: '[article] Get article'
+  getArticle: '[article] Get article',
+  deleteArticle: '[article] Delete article'
 }
 
 const mutations = {
@@ -27,7 +31,10 @@ const mutations = {
   },
   [mutationsTypes.getArticleFailure](state) {
     state.isLoading = false
-  }
+  },
+  [mutationsTypes.deleteArticleStart]() {},
+  [mutationsTypes.deleteArticleSuccess]() {},
+  [mutationsTypes.deleteArticleFailure]() {}
 }
 
 const actions = {
@@ -42,6 +49,20 @@ const actions = {
         })
         .catch(() => {
           context.commit(mutationsTypes.getArticleFailure)
+        })
+    })
+  },
+  [actionsTypes.deleteArticle](context, {slug}) {
+    return new Promise(resolve => {
+      context.commit(mutationsTypes.deleteArticleStart)
+      articleApi
+        .deleteArticle(slug)
+        .then(() => {
+          context.commit(mutationsTypes.deleteArticleSuccess)
+          resolve()
+        })
+        .catch(() => {
+          context.commit(mutationsTypes.deleteArticleFailure)
         })
     })
   }
