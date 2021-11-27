@@ -19,7 +19,7 @@
 import McvFeed from '@/components/Feed'
 import McvPopularTags from '@/components/PopularTags'
 import McvBanner from '@/components/Banner'
-import McvFeedToggler from '@/components/FeedTogler'
+import McvFeedToggler from '@/components/FeedToggler'
 
 export default {
   name: 'McvGlobalFeed',
