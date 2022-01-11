@@ -1,4 +1,4 @@
-import popularTagsApi from '@/api/populartags'
+import popularTagsApi from '@/api/popularTags'
 
 const state = {
   data: null,
@@ -6,42 +6,42 @@ const state = {
   error: null
 }
 
-export const mutationsTypes = {
-  getPopularTagsStart: '[popularTags] Get popularTags start',
-  getPopularTagsSuccess: '[popularTags] Get popularTags success',
-  getPopularTagsFailure: '[popularTags] Get popularTags failure'
+export const mutationTypes = {
+  getPopularTagsStart: '[popularTags] Get popular tags start',
+  getPopularTagsSuccess: '[popularTags] Get popular tags success',
+  getPopularTagsFailure: '[popularTags] Get popular tags failure'
 }
 
-export const actionsTypes = {
-  getPopularTags: '[popularTags] Get popularTags'
+export const actionTypes = {
+  getPopularTags: '[popularTags] Get popular tags'
 }
 
 const mutations = {
-  [mutationsTypes.getPopularTagsStart](state) {
+  [mutationTypes.getPopularTagsStart](state) {
     state.isLoading = true
     state.data = null
   },
-  [mutationsTypes.getPopularTagsSuccess](state, payload) {
+  [mutationTypes.getPopularTagsSuccess](state, payload) {
     state.isLoading = false
     state.data = payload
   },
-  [mutationsTypes.getPopularTagsFailure](state) {
+  [mutationTypes.getPopularTagsFailure](state) {
     state.isLoading = false
   }
 }
 
 const actions = {
-  [actionsTypes.getPopularTags](context) {
+  [actionTypes.getPopularTags](context) {
     return new Promise(resolve => {
-      context.commit(mutationsTypes.getPopularTagsStart)
+      context.commit(mutationTypes.getPopularTagsStart)
       popularTagsApi
         .getPopularTags()
         .then(tags => {
-          context.commit(mutationsTypes.getPopularTagsSuccess, tags)
+          context.commit(mutationTypes.getPopularTagsSuccess, tags)
           resolve(tags)
         })
         .catch(() => {
-          context.commit(mutationsTypes.getPopularTagsFailure)
+          context.commit(mutationTypes.getPopularTagsFailure)
         })
     })
   }

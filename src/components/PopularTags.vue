@@ -21,7 +21,8 @@
 
 <script>
 import {mapState} from 'vuex'
-import {actionsTypes} from '@/store/modules/popularTags'
+
+import {actionTypes} from '@/store/modules/popularTags'
 import McvLoading from '@/components/Loading'
 import McvErrorMessage from '@/components/ErrorMessage'
 
@@ -34,14 +35,12 @@ export default {
   computed: {
     ...mapState({
       isLoading: state => state.popularTags.isLoading,
-      error: state => state.popularTags.error,
-      popularTags: state => state.popularTags.data
+      popularTags: state => state.popularTags.data,
+      error: state => state.popularTags.error
     })
   },
   mounted() {
-    this.$store.dispatch(actionsTypes.getPopularTags)
+    this.$store.dispatch(actionTypes.getPopularTags)
   }
 }
 </script>
-
-<style scoped></style>

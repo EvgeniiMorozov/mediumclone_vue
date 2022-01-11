@@ -5,13 +5,16 @@
         <h1>{{ article.title }}</h1>
         <div class="article-meta">
           <router-link
-            :to="{name: 'userProfile', params: {slug: article.author.user}}"
+            :to="{name: 'userProfile', params: {slug: article.author.username}}"
           >
             <img :src="article.author.image" />
           </router-link>
           <div class="info">
             <router-link
-              :to="{name: 'userProfile', params: {slug: article.author.user}}"
+              :to="{
+                name: 'userProfile',
+                params: {slug: article.author.username}
+              }"
             >
               {{ article.author.username }}
             </router-link>
@@ -19,8 +22,8 @@
           </div>
           <span v-if="isAuthor">
             <router-link
-              :to="{name: 'editArticle', params: {slug: article.slug}}"
               class="btn btn-outline-secondary btn-sm"
+              :to="{name: 'editArticle', params: {slug: article.slug}}"
             >
               <i class="ion-edit" />
               Edit Article
@@ -30,21 +33,21 @@
               @click="deleteArticle"
             >
               <i class="ion-trash-a" />
-              Delete article
+              Delete Article
             </button>
           </span>
         </div>
       </div>
     </div>
-    <div class="container-page">
+    <div class="container page">
       <mcv-loading v-if="isLoading" />
-      <mcv-error-message v-if="error" :message="error" />
+      <mcv-error-message v-if="isLoading" :message="error" />
       <div class="row article-content" v-if="article">
         <div class="col-xs-12">
           <div>
             <p>{{ article.body }}</p>
           </div>
-          TAGLIST
+          <mcv-tag-list :tags="article.tagList" />
         </div>
       </div>
     </div>
@@ -52,23 +55,26 @@
 </template>
 
 <script>
-import {actionsTypes as articleActionTypes} from '@/store/modules/article'
+import {mapState, mapGetters} from 'vuex'
+
+import {actionTypes as articleActionTypes} from '@/store/modules/article'
 import {getterTypes as authGetterTypes} from '@/store/modules/auth'
-import {mapGetters, mapState} from 'vuex'
 import McvLoading from '@/components/Loading'
 import McvErrorMessage from '@/components/ErrorMessage'
+import McvTagList from '@/components/TagList'
 
 export default {
   name: 'McvArticle',
   components: {
+    McvLoading,
     McvErrorMessage,
-    McvLoading
+    McvTagList
   },
   computed: {
     ...mapState({
       isLoading: state => state.article.isLoading,
-      error: state => state.article.error,
-      article: state => state.article.data
+      article: state => state.article.data,
+      error: state => state.article.error
     }),
     ...mapGetters({
       currentUser: authGetterTypes.currentUser
@@ -77,6 +83,7 @@ export default {
       if (!this.currentUser || !this.article) {
         return false
       }
+
       return this.currentUser.username === this.article.author.username
     }
   },
@@ -98,5 +105,3 @@ export default {
   }
 }
 </script>
-
-<style scoped></style>

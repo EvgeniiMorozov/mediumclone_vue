@@ -1,8 +1,8 @@
 <template>
   <div class="banner">
     <div class="container">
-      <h1>Medium Clone</h1>
-      <p>Test project</p>
+      <h1>Medium clone</h1>
+      <p>A place to share knowledge</p>
     </div>
   </div>
 </template>
@@ -12,5 +12,3 @@ export default {
   name: 'McvBanner'
 }
 </script>
-
-<style scoped></style>

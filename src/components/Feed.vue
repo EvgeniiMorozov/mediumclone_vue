@@ -35,7 +35,7 @@
           <h1>{{ article.title }}</h1>
           <p>{{ article.description }}</p>
           <span>Read more...</span>
-          <mcv-popular-tags />
+          <mcv-tag-list :tags="article.tagList" />
         </router-link>
       </div>
       <mcv-pagination
@@ -55,17 +55,17 @@ import {stringify, parseUrl} from 'query-string'
 import {actionTypes} from '@/store/modules/feed'
 import McvPagination from '@/components/Pagination'
 import {limit} from '@/helpers/vars'
-import McvPopularTags from '@/components/PopularTags'
 import McvLoading from '@/components/Loading'
 import McvErrorMessage from '@/components/ErrorMessage'
+import McvTagList from '@/components/TagList'
 
 export default {
   name: 'McvFeed',
   components: {
-    McvErrorMessage,
-    McvPopularTags,
     McvPagination,
-    McvLoading
+    McvLoading,
+    McvErrorMessage,
+    McvTagList
   },
   props: {
     apiUrl: {
@@ -79,15 +79,14 @@ export default {
       feed: state => state.feed.data,
       error: state => state.feed.error
     }),
-    currentPage() {
-      console.log('currentPage', this.$route)
-      return Number(this.$route.query.page || '1')
+    limit() {
+      return limit
     },
     baseUrl() {
       return this.$route.path
     },
-    limit() {
-      return limit
+    currentPage() {
+      return Number(this.$route.query.page || '1')
     },
     offset() {
       return this.currentPage * limit - limit

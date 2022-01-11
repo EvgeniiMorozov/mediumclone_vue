@@ -6,63 +6,64 @@ const state = {
   error: null
 }
 
-export const mutationsTypes = {
+export const mutationTypes = {
   getArticleStart: '[article] Get article start',
   getArticleSuccess: '[article] Get article success',
   getArticleFailure: '[article] Get article failure',
+
   deleteArticleStart: '[article] Delete article start',
   deleteArticleSuccess: '[article] Delete article success',
   deleteArticleFailure: '[article] Delete article failure'
 }
 
-export const actionsTypes = {
+export const actionTypes = {
   getArticle: '[article] Get article',
   deleteArticle: '[article] Delete article'
 }
 
 const mutations = {
-  [mutationsTypes.getArticleStart](state) {
+  [mutationTypes.getArticleStart](state) {
     state.isLoading = true
     state.data = null
   },
-  [mutationsTypes.getArticleSuccess](state, payload) {
+  [mutationTypes.getArticleSuccess](state, payload) {
     state.isLoading = false
     state.data = payload
   },
-  [mutationsTypes.getArticleFailure](state) {
+  [mutationTypes.getArticleFailure](state) {
     state.isLoading = false
   },
-  [mutationsTypes.deleteArticleStart]() {},
-  [mutationsTypes.deleteArticleSuccess]() {},
-  [mutationsTypes.deleteArticleFailure]() {}
+  [mutationTypes.deleteArticleStart]() {},
+  [mutationTypes.deleteArticleSuccess]() {},
+  [mutationTypes.deleteArticleFailure]() {}
 }
 
 const actions = {
-  [actionsTypes.getArticle](context, {slug}) {
+  [actionTypes.getArticle](context, {slug}) {
     return new Promise(resolve => {
-      context.commit(mutationsTypes.getArticleStart)
+      context.commit(mutationTypes.getArticleStart)
       articleApi
         .getArticle(slug)
         .then(article => {
-          context.commit(mutationsTypes.getArticleSuccess, article)
+          context.commit(mutationTypes.getArticleSuccess, article)
           resolve(article)
         })
         .catch(() => {
-          context.commit(mutationsTypes.getArticleFailure)
+          context.commit(mutationTypes.getArticleFailure)
         })
     })
   },
-  [actionsTypes.deleteArticle](context, {slug}) {
+  [actionTypes.deleteArticle](context, {slug}) {
     return new Promise(resolve => {
-      context.commit(mutationsTypes.deleteArticleStart)
+      context.commit(mutationTypes.deleteArticleStart)
       articleApi
         .deleteArticle(slug)
         .then(() => {
-          context.commit(mutationsTypes.deleteArticleSuccess)
+          context.commit(mutationTypes.deleteArticleSuccess)
           resolve()
         })
         .catch(() => {
-          context.commit(mutationsTypes.deleteArticleFailure)
+          context.commit(mutationTypes.deleteArticleFailure)
         })
     })
   }

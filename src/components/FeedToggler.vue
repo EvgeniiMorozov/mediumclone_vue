@@ -10,6 +10,7 @@
           Your feed
         </router-link>
       </li>
+
       <li class="nav-item">
         <router-link
           :to="{name: 'globalFeed'}"
@@ -19,6 +20,7 @@
           Global feed
         </router-link>
       </li>
+
       <li class="nav-item" v-if="tagName">
         <router-link
           :to="{name: 'tag'}"
@@ -26,7 +28,7 @@
           :class="{active: routeName === 'tag'}"
         >
           <i class="ion-pound" />
-          {tagName}
+          {{ tagName }}
         </router-link>
       </li>
     </ul>
@@ -35,7 +37,9 @@
 
 <script>
 import {mapGetters} from 'vuex'
+
 import {getterTypes} from '@/store/modules/auth'
+
 export default {
   name: 'McvFeedToggler',
   props: {
@@ -54,5 +58,3 @@ export default {
   }
 }
 </script>
-
-<style scoped></style>
