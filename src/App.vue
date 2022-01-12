@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import McvTopbar from '@/components/Topbar.vue'
+import McvTopbar from '@/components/TopBar.vue'
 import {actionTypes} from '@/store/modules/auth'
 
 export default {
