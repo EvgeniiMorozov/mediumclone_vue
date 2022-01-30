@@ -11,8 +11,11 @@
 </template>
 
 <script>
+import McvArticleForm from '@/components/ArticleForm'
+
 export default {
   name: 'McvCreateArticle',
+  components: {McvArticleForm},
   data() {
     return {
       initialValues: {
