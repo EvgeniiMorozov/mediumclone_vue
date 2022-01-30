@@ -5,7 +5,7 @@
       :initial-values="initialValues"
       :errors="validationErrors"
       :is-submitting="isSubmitting"
-      @articleSubmitt="onSubmit"
+      @articleSubmit="onSubmit"
     />
   </div>
 </template>
