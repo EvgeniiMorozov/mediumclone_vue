@@ -59,7 +59,7 @@
                   type="password"
                   class="form-control form-control-large"
                   v-model="form.password"
-                  placeholder="Password"
+                  placeholder="New password"
                 />
               </fieldset>
 
