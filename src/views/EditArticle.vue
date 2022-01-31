@@ -3,7 +3,7 @@
     <mcv-loading v-if="isLoading" />
     <mcv-article-form
       v-if="initialValues"
-      :initial-values="initialValues"
+      :initialValues="initialValues"
       :errors="validationErrors"
       :is-submitting="isSubmitting"
       @articleSubmit="onSubmit"
@@ -36,7 +36,7 @@ export default {
         title: this.article.title,
         description: this.article.description,
         body: this.article.body,
-        tagList: this.article.tagList.join(' ')
+        tagList: this.article.tagList
       }
     }
   },
