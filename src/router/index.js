@@ -7,6 +7,8 @@ import Register from '@/views/Register.vue'
 import TagFeed from '@/views/TagFeed.vue'
 import YourFeed from '@/views/YourFeed.vue'
 import Settings from '@/views/Settings.vue'
+import UserProfile from '@/views/UserProfile.vue'
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -61,12 +63,12 @@ const routes = [
   {
     path: '/profiles/:slug',
     name: 'userProfile',
-    component: GlobalFeed
+    component: UserProfile
   },
   {
     path: '/profiles/:slug/favorites',
     name: 'userProfileFavorites',
-    component: GlobalFeed
+    component: UserProfile
   }
 ]
 
